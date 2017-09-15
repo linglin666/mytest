@@ -4,11 +4,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <body ng-app="myApp">
 
-<div class="w3-test-directive"></div>
+<div class="my-directive"></div>
 
 <script>
 var app = angular.module("myApp", []);
-app.directive("w3TestDirective", function() {
+app.directive("myDirective", function() {
     return {
         restrict : "C",
         template : "<h1>Made by a directive!</h1>"
