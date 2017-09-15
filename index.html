@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <body>
 
-<div ng-app="">
-  <p>Name: <input type="text" ng-model="name"></p>
-  <p ng-bind="name"></p>
+<div ng-app="myApp" my-directive></div>
+
+  <a href = "t1_directive_c.html">t1_directive_c.html</a>
+
+<div>
+  <p>End.</p>
 </div>
+<script>
+  var vvApp = angular.module("vv",[]);
+
+  var app = angular.module("myApp", []);
+
+  app.directive("myDirective", function(){
+    return {
+      template:"My directive conent is here!"
+    }
+  });
+</script>
 
 </body>
 </html>
+
