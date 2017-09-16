@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<form ng-app="" name="myForm" ng-init="myText = 'post@ss.com'">
+  Email:
+  <input type="email" name="myAddress" ng-model="myText"   required>
+  <h1>Status</h1>
+  <pre>isValid:{{myForm.myAddress.$valid}}</pre>
+  <pre>isDirty:{{myForm.myAddress.$dirty}}</pre>
+  <pre>isTouched:{{myForm.myAddress.$touched}}</pre>
+</form>
+
+</body>
+</html>
