@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<style>
+    /* input.ng-invalid{
+        background-color: lightblue;
+    } */
+</style>
+<body>
+
+    <div ng-app="myApp" ng-controller="myController">
+        <div ng-address-bar></div>
+        <p> The current url is:{{myUrl}}</p>
+        <p>myPath{{myPath}}</p>
+        <p>host:{{host}}</p>
+        <span ng-bind="$location.port()"/><br>
+        <p>hash:{{hash}}</p>
+    </div>
+<script>
+var app = angular.module('myApp', ['address-bar']);
+app.controller('myController', function($scope,$location){
+    $scope.myUrl = $location.absUrl();
+    $scope.myPath = $location.path();
+    $scope.host = $location.host();
+    $scope.port = $location.port();
+    $scope.hash = $location.hash();
+
+});
+
+angular.module('address-bar', [])
+.directive('ngAddressBar', function($browser, $timeout) {
+   return {
+     template: 'Address: <input id="addressBar" type="text" style="width: 400px" >',
+     link: function(scope, element, attrs) {
+       var input = element.children('input'), delay;
+
+       input.on('keypress keyup keydown', function(event) {
+               delay = (!delay ? $timeout(fireUrlChange, 250) : null);
+               event.stopPropagation();
+             })
+            .val($browser.url());
+
+       $browser.url = function(url) {
+         return url ? input.val(url) : input.val();
+       };
+
+       function fireUrlChange() {
+         delay = null;
+         $browser.urlChange(input.val());
+       }
+     }
+   };
+ });
+</script>
+</body>
+</html>

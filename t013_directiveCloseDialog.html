@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<style>
+    /* input.ng-invalid{
+        background-color: lightblue;
+    } */
+</style>
+<body>
+ <div ng-app="myApp" ng-controller="myController">
+     {{message}}
+     <my-dialog ng-hide="dialogIsHidden" on-close="hideDialog(message)">
+         Hi {{name}}. Click on x to close the dialog.
+     </my-dialog>
+ </div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myController', ['$scope','$timeout', function($scope, $timeout){
+    $scope.name ="John";
+    $scope.message = "";
+    $scope.hideDialog = function(message) {
+        console.log("hideDialog.message:"+message);
+        $scope.message = message;
+        $scope.dialogIsHidden = true;
+        $timeout(function() {
+            $scope.message = '';
+            $scope.dialogIsHidden = false;
+        }, 3600)
+    };
+}]);
+
+app.directive ('myDialog', function(){
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: {
+            'close': '&onClose'
+        },
+        template: '<div class="alert"> \
+            <a href class="close" \
+            ng-click="close({message: \'Closing for now\'})">&times;<a/> \
+            <div ng-transclude></div>\
+            </div>'
+    };
+});
+
+</script>
+</body>
+</html>
