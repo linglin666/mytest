@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<style>
+    /* input.ng-invalid{
+        background-color: lightblue;
+    } */
+</style>
+<body>
+
+<div ng-app="myApp">
+<my-tabs>
+    <my-pane title="Hello">
+        <p>Hola. Esta es un pane.</p>
+    </my-pane>
+    <my-pane title = "Pane2">
+        <em>Boujour pane 2.</em>
+        <p><a href ng-click="i = i + 1"> counter: {{i || 0}} </a></p>
+    </my-pane>
+
+</my-tabs>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.directive('myTabs', function(){
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: {},
+        controller: ['$scope', function myTabsCtrl($scope){
+            var panes = $scope.panes = [];
+            $scope.select = function(pane) {
+                angular.forEach(panes, function(pane){
+                    pane.selected = false;
+                });
+                pane.selected = true;
+            };
+            this.addPane = function(pane){
+                if(panes.length === 0) {
+                    $scope.select(pane);
+                }
+                panes.push(pane);
+            };
+        }],
+        template: ' \
+         <div class="tabbable"> \
+            <ul class="nav nav-tabs">\
+               <li ng-repeat="pane in panes" ng-class="{active:pane.selected}"> \
+                 <a href="" ng-click="select(pane)">{{pane.title}}</a>\
+               </li> \
+            </ul>\
+            <div class="tab-content" ng-transclude></div>\
+         </div>\
+        '
+    }
+});
+app.directive('myPane', function(){
+    return{
+        require: '^^myTabs',
+        restrict: 'E',
+        transclude: true,
+        scope: {
+            title: '@'
+        },
+        link: function(scope, element, attrs, tabsCtrl){
+            tabsCtrl.addPane(scope);
+        },
+        template: ' \
+         <div class="tab-pane" ng-show="selected"> \
+            <h4>{{title}}</h4> \
+            <div ng-transclude></div> \
+         </div> \
+        '
+    };
+});
+
+</script>
+</body>
+</html>
