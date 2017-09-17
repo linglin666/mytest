@@ -9,12 +9,45 @@
     } */
 </style>
 <body>
-<span my-draggable>Drag me</span>
-
+    <div ng-app="myDragApp">
+    <span my-draggable>Drag me</span>
+    </div>
 <script>
 var app = angular.module("myDragApp", []);
 
-//app.d
+app.directive("myDraggable",['$document',function($document){
+return{
+    link: function(scope, element, attr){
+        var startX=0, startY=0, x=0, y=0;
+
+        element.css({
+            position: 'relative',
+            border: '1px solid red',
+            backgroundColor: 'lightblue',
+            cursor: 'pointer'
+        });
+        element.on('mousedown', function(event){
+            event.preventDefault();
+            startX = event.pageX - x;
+            startY = event.pageY - y;
+            $document.on('mousemove', myMouseMove);
+            $document.on('mouseup', myMouseUp);
+        });
+        function myMouseMove(event){
+            y = event.pageY - startY;
+            x = event.pageX - startX;
+            element.css({
+                top: y + 'px',
+                left: x + 'px'
+            });
+        };
+        function myMouseUp(){
+            $document.off('mousemove', myMouseMove);
+            $document.off('mouseup', myMouseUp);
+        };
+    }
+};
+}]);
 
 </script>
 </body>
