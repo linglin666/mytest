@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<style>
+    /* input.ng-invalid{
+        background-color: lightblue;
+    } */
+</style>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <p>The time is:</p>
+    <h2>{{theTime}}</h2>
+</div>
+<script>
+var app=angular.module("myApp", []);
+
+app.controller('myCtrl', function($scope, $interval){
+    $scope.theTime = new Date().toLocaleTimeString();
+    $interval(function() {
+        $scope.theTime = new Date().toLocaleTimeString();
+    },1000);
+
+});
+
+</script>
+</body>
+</html>
