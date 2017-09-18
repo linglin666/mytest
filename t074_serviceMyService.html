@@ -13,6 +13,10 @@
 <div ng-app="myApp" ng-controller="myCtrl">
         <p> The hexadecimal value of 255 is:</p>
         <h1>{{hex}}</h1>
+
+        <ul>
+            <li ng-repeat="x in counts">{{x | myFormat}}</li>
+        </ul>
 </div>
 <script>
 var app=angular.module("myApp", []);
@@ -23,8 +27,16 @@ app.service('myHexSvc', function(){
     }
 });
 
+app.filter('myFormat',['myHexSvc',function(myHexSvc){
+    return function(x){
+        return myHexSvc.myFunc(x);
+    };
+}]);
+
 app.controller("myCtrl", function($scope, myHexSvc){
     $scope.hex = myHexSvc.myFunc(255);
+
+    $scope.counts = [255, 16, 256, 1024, 2558840]
 });
 
 </script>
