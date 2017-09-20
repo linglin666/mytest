@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<style>
+    /* input.ng-invalid{
+        background-color: lightblue;
+    } */
+
+    table, th, td{
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+    /* table tr:nth-child(odd){
+        background-color: #f1f1f1;
+    }
+    table tr:nth-child(even){
+        background-color: #ffffff;
+    } */
+</style>
+<body>
+<div ng-app="myApp" ng-controller="customersCtrl">
+A table below. The country column is sorted and uppercase filters.<br>
+<table>
+    <tr ng-repeat="x in names | orderBy: 'country' ">
+        <td ng-if=$odd style="background-color: #f1f1f1;" >{{$index + 1}}</td>
+        <td ng-if=$even >{{$index + 1}}</td>
+        <td ng-if=$odd style="background-color: #f1f1f1;" >{{x.name}}</td>
+        <td ng-if=$even >{{x.name}}</td>
+        <td>{{x.country | uppercase}}</td>
+    </tr>
+</table>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http){
+    $scope.names = [
+        {name:'Jani',country:'Norway'},
+        {name:'Hege',country:'Sweden'},
+        {name:'Hege2',country:'Sweden2'},
+        {name:'Hege3',country:'Sweden3'},
+        {name:'Hege4',country:'Sweden4'},
+        {name:'Hege5',country:'Sweden5'},
+        {name:'Hege6',country:'Sweden6'},
+        {name:'Kai',country:'Denmark'}
+        ];
+});
+</script>
+</body>
+</html>
