@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />        
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-touch.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.css" rel="stylesheet" />
+<body>
+
+    <div ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <p>A grid.</p>
+        <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ></div>
+    </div>
+    </div>
+<script>
+var app = angular.module("myApp", ['ngTouch', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', ]);
+
+app.controller('myCtrl', ['$scope', function($scope){
+    $scope.gridOptioins = {};
+
+    $scope.gridOptions = [
+        {name: 'firstName', enableCellEdit: true}
+    ];
+    $scope.gridOptions.data = $scope.myData;
+
+    $scope.myData = [
+    {
+        "firstName": "Cox",
+        "lastName": "Carney",
+        "company": "Enormo",
+        "employed": true
+    },
+    {
+        "firstName": "Lorraine",
+        "lastName": "Wise",
+        "company": "Comveyer",
+        "employed": false
+    },
+    {
+        "firstName": "Jone",
+        "lastName": "PP",
+        "company": "Comveyer",
+        "employed": false
+    },
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "company": "Comveyer",
+        "employed": false
+    },
+    {
+        "firstName": "Nancy",
+        "lastName": "Waters",
+        "company": "Fuelton",
+        "employed": false
+    }        
+    ];
+}]);
+
+</script>
+</body>
+</html>
