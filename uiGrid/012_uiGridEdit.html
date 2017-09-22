@@ -14,11 +14,13 @@
     <div ng-app="myApp">
     <div ng-controller="myCtrl">
         <p>A grid.</p>
-        <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ></div>
+        <div id="grid1" ui-grid="{data:myData}" ui-grid-edit 
+        ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
     </div>
     </div>
 <script>
-var app = angular.module("myApp", ['ngTouch', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', ]);
+var app = angular.module("myApp", ['ngTouch', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit',
+ 'ui.grid.cellNav', 'ui.grid.resizeColumns']);
 
 app.controller('myCtrl', ['$scope', function($scope){
     $scope.gridOptioins = {};
