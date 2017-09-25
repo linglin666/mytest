@@ -13,8 +13,10 @@
 
     <div ng-app="myApp">
     <div ng-controller="myCtrl">
-        <p>A grid.</p>
-        <div id="grid1" ui-grid="{data:myData}" ui-grid-edit 
+        <p>lastCellEditedName: {{msg.lastCellEditedName}}</p>
+        <p>lastCellEditedNewValue: {{msg.lastCellEditedNewValue}}</p>
+        <p>lastCellEditedOldValue: {{msg.lastCellEditedOldValue}}</p>
+        <div id="grid1" ui-grid="gridOptions" ui-grid-edit 
         ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
     </div>
     </div>
@@ -22,40 +24,69 @@
 var app = angular.module("myApp", ['ngTouch', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit',
  'ui.grid.cellNav', 'ui.grid.resizeColumns']);
 
-app.controller('myCtrl', ['$scope', function($scope){
-    $scope.gridOptioins = {};
+app.controller('myCtrl', ['$scope', '$q', function($scope, $q){
+    $scope.gridOptions = {};
 
-    $scope.gridOptions = [
-        {name: 'firstName', enableCellEdit: true}
+    $scope.gridOptions.columnDefs = [
+         {field: 'firstName'}
+        ,{field: 'lastName'}
+        ,{field: 'company'}
+        ,{field: 'employed'}
     ];
-    $scope.gridOptions.data = $scope.myData;
 
-    $scope.myData = [
+    $scope.msg = {};
+
+    $scope.gridOptions.onRegisterApi = function(gridApi){
+        $scope.gridApi = gridApi;
+        gridApi.edit.on.afterCellEdit($scope, function(rowEntity,colDef,newValue,oldValue){
+            $scope.msg.lastCellEditedName = colDef.name;
+            $scope.msg.lastCellEditedNewValue = newValue;
+            $scope.msg.lastCellEditedOldValue = oldValue;
+            $scope.$apply();
+        });
+
+        // Fake saveRow method.
+        gridApi.rowEdit.on.saveRow($scope, function(rowEntity){
+            var promise = $q.defer();
+            $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+            promise.resolve();
+
+            console.log("saveRow promise resolved. rowEntity:" + 
+                JSON.stringify(rowEntity) );
+        });
+    };
+
+    $scope.gridOptions.data  = [
     {
+        "id": 1,
         "firstName": "Cox",
         "lastName": "Carney",
         "company": "Enormo",
         "employed": true
     },
     {
+        "id": 2,
         "firstName": "Lorraine",
         "lastName": "Wise",
         "company": "Comveyer",
         "employed": false
     },
     {
+        "id": 3,
         "firstName": "Jone",
         "lastName": "PP",
         "company": "Comveyer",
         "employed": false
     },
     {
+        "id": 4,
         "firstName": "John",
         "lastName": "Doe",
         "company": "Comveyer",
         "employed": false
     },
     {
+        "id": 5,
         "firstName": "Nancy",
         "lastName": "Waters",
         "company": "Fuelton",
