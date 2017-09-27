@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />        
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-touch.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.css" rel="stylesheet" />
+<body>
+
+    <div ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <p>A grid.</p>
+        <button type="button" ng-click="add()">Add</button>
+        <button type="button" ng-click="delete()">Delete</button>
+        <div id="grid1" ui-grid="gridOptions" ui-grid-selection></div>
+    </div>
+    </div>
+<script>
+var app = angular.module("myApp", ['ngTouch', 'ui.grid', 'ui.grid.selection']);
+
+app.controller('myCtrl', ['$scope', function($scope){
+    $scope.gridOptions = {
+        enableRowSelection: true,
+        enableRowHeaderSelection: false,
+        multiSelect: false
+    };
+    $scope.gridOptions.columnDefs = [
+        {field: 'firstName'}
+        ,{field: 'lastName'}
+        ,{field: 'company'}
+        ,{field: 'employed'}
+        ];
+
+    $scope.add = function(){
+        console.log("add()");
+    };
+    $scope.delete = function() {
+        console.log("delete()");
+    };
+
+    $scope.gridOptions.data  = [
+    {
+        "id": 1,
+        "firstName": "Cox",
+        "lastName": "Carney",
+        "company": "Enormo",
+        "employed": true
+    },
+    {
+        "id": 2,
+        "firstName": "Lorraine",
+        "lastName": "Wise",
+        "company": "Comveyer",
+        "employed": false
+    },
+    {
+        "id": 3,
+        "firstName": "Jone",
+        "lastName": "PP",
+        "company": "Comveyer",
+        "employed": false
+    },
+    {
+        "id": 4,
+        "firstName": "John",
+        "lastName": "Doe",
+        "company": "Comveyer",
+        "employed": false
+    },
+    {
+        "id": 5,
+        "firstName": "Nancy",
+        "lastName": "Waters",
+        "company": "Fuelton",
+        "employed": false
+    }        
+    ];
+}]);
+
+</script>
+</body>
+</html>
