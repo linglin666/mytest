@@ -39,9 +39,20 @@ app.controller('myCtrl', ['$scope', function($scope){
         console.log("add()");
     };
     $scope.delete = function() {
-        console.log("delete()");
+        console.log("delete() " + $scope.selectedId) ;
     };
 
+    $scope.gridOptions.onRegisterApi = function(gridApi){
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function(row){
+            var msg = 'Row selected: ' + row.isSelected +
+                      " row.entity:" + JSON.stringify(row.entity) +
+                      " row.index:" + row.index;
+            $scope.selectedId = row.entity.id;
+            console.log(msg);
+        });
+    };
+    
     $scope.gridOptions.data  = [
     {
         "id": 1,
