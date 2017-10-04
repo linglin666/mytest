@@ -39,7 +39,24 @@ app.controller('myCtrl', ['$scope', function($scope){
         console.log("add()");
     };
     $scope.delete = function() {
-        console.log("delete() " + $scope.selectedId) ;
+        if( $scope.selectedEntity == undefined ) {
+            console.log("Select a row first!");
+            return;
+        }
+
+        
+
+        // var ff = $scope.gridOptions.data.filter ( function (el) {
+        //     return el.id == $scope.selectedId
+        // } );
+        var ind = $scope.gridOptions.data.indexOf($scope.selectedEntity);
+        console.log("delete() id:" + $scope.selectedEntity.id +  
+            " selectedEntity:" + JSON.stringify($scope.selectedEntity) + 
+            " ind:" + ind) ;
+        
+        // splice the item from the data array.
+        $scope.gridOptions.data.splice(ind, 1);
+        $scope.selectedEntity = undefined;
     };
 
     $scope.gridOptions.onRegisterApi = function(gridApi){
@@ -48,7 +65,7 @@ app.controller('myCtrl', ['$scope', function($scope){
             var msg = 'Row selected: ' + row.isSelected +
                       " row.entity:" + JSON.stringify(row.entity) +
                       " row.index:" + row.index;
-            $scope.selectedId = row.entity.id;
+            $scope.selectedEntity = row.entity;
             console.log(msg);
         });
     };
