@@ -42,9 +42,7 @@ app.controller('myCtrl', ['$scope', function($scope){
         if( $scope.selectedEntity == undefined ) {
             console.log("Select a row first!");
             return;
-        }
-
-        
+        }        
 
         // var ff = $scope.gridOptions.data.filter ( function (el) {
         //     return el.id == $scope.selectedId
@@ -63,8 +61,7 @@ app.controller('myCtrl', ['$scope', function($scope){
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function(row){
             var msg = 'Row selected: ' + row.isSelected +
-                      " row.entity:" + JSON.stringify(row.entity) +
-                      " row.index:" + row.index;
+                      " row.entity:" + JSON.stringify(row.entity);
             $scope.selectedEntity = row.entity;
             console.log(msg);
         });
