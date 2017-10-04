@@ -37,16 +37,19 @@ app.controller('myCtrl', ['$scope', function($scope){
 
     $scope.add = function(){
         console.log("add()");
+        $scope.gridOptions.data.unshift({
+            "id": -1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "company": "MyCo LLC",
+            "employed": false
+        })
     };
     $scope.delete = function() {
         if( $scope.selectedEntity == undefined ) {
             console.log("Select a row first!");
             return;
         }        
-
-        // var ff = $scope.gridOptions.data.filter ( function (el) {
-        //     return el.id == $scope.selectedId
-        // } );
         var ind = $scope.gridOptions.data.indexOf($scope.selectedEntity);
         console.log("delete() id:" + $scope.selectedEntity.id +  
             " selectedEntity:" + JSON.stringify($scope.selectedEntity) + 
