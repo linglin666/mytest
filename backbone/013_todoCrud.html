@@ -33,6 +33,9 @@
          <a href="#/">show all</a>
          <a href="#/pending">show pending</a>
          <a href="#/completed">show completed</a>
+         <p>
+         <label id='myselected'></label>
+        </p>
      </header>
      <section id="main">
          <ul id="todo-list"></ul>
@@ -131,6 +134,7 @@
           app.todoList.on('add', this.addAll, this);
           app.todoList.on('reset', this.addAll, this);
           app.todoList.fetch();  
+          this.myselected = this.$('#myselected');
         },
         events:{
             'keypress #new-todo': 'createTodoOnEnter'
@@ -148,16 +152,19 @@
         },
         addAll: function() {
             this.$('#todo-list').html(''); // clear
-            app.todoList.each(this.addOne, this);
+            //app.todoList.each(this.addOne, this);
             // filter the list
             switch(window.filter) {
                 case 'pending':
+                    $('#myselected').html('pending');
                     _.each(app.todoList.remaining(), this.addOne);
                     break;
                 case 'completed':
+                    $('#myselected').html('completed');
                     _.each(app.todoList.completed(), this.addOne);
                     break;
                 default:
+                    $('#myselected').html('all');
                     app.todoList.each(this.addOne, this);
                     break;
             }
