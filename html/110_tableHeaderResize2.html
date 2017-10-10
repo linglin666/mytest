@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><title>resizable columns</title>
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
+    <style>
+    th {
+        border: 1px solid black;
+    }
+    table{
+        border-collapse: collapse;}
+    .ui-icon, .ui-widget-content .ui-icon {
+        background-image: none;
+        }
+    </style>
+    <body>
+    <table>
+    <tr>
+        <th>head 1</th>
+        <th>head 2</th>
+    </tr>
+    <tr>
+        <td>a1</td>
+        <td>b1</td></tr>
+    </table>
+    
+    <script>
+    $( "th" ).resizable();
+    </script>
+    
+</body>
+</html>
