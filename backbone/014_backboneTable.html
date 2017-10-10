@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Table app</title>
+  <style>
+  .selected {
+    background-color: rgba(243, 134, 9, 0.16) !important;
+    color: #000000;
+    }
+  </style>
 </head>
 <body>
 
@@ -13,6 +19,7 @@
         <th>FirstName</th>
         <th>LastName</th>
         <th>Code</th>
+        <th>Remove</th>
     </thead>
     <tbody id="teamBody"></tbody>
 </table>
@@ -31,6 +38,7 @@
     <td><%= firstName %></td>
     <td><%= lastName %></td>
     <td><%= code %></td>
+    <td><button>remove</button></td>
 </script>
 
   <script type="text/javascript">
@@ -100,6 +108,11 @@
 
     var app = new TeamView();
 
+     $("#teamId tr").click( function(){
+         $(this).addClass('selected').siblings().removeClass('selected');
+         var vv = $(this).find('td:first').html();
+         console.log("selected.firstName:" + vv);
+     });
 
 
 
