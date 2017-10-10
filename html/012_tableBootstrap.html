@@ -6,6 +6,7 @@ table {
     border-style: solid;
     border-color: black;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 table td {
@@ -43,6 +44,9 @@ table th.resizing {
     -ms-user-select: none;
     user-select: none;
 }
+tr:nth-child(even){
+    background-color: rgba(134, 112, 112, 0.23)
+}
     </style>
 <body>
 
@@ -72,6 +76,12 @@ table th.resizing {
                <td>td 23</td>
                <td>td 33</td>
             </tr>
+            <tr>
+                    <td>td 14</td>
+                    <td>td 24</td>
+                    <td>td 34</td>
+            </tr>
+     
             
 
         </tbody>
@@ -90,6 +100,7 @@ $(function() {
     
     $("table th").mousedown(function(e) {
         start = $(this);
+        console.log("start:" + JSON.stringify(start));
         pressed = true;
         startX = e.pageX;
         startWidth = $(this).width();
@@ -99,7 +110,10 @@ $(function() {
     
     $(document).mousemove(function(e) {
         if(pressed) {
-            $(start).width(startWidth+(e.pageX-startX));
+            var calWidth = startWidth+(e.pageX-startX);
+            $(start).width(calWidth);
+
+            console.log("start.calWidth:" + calWidth + " actWidth:" + $(start).width());
         }
     });
     
