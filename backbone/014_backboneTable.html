@@ -5,9 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Table app</title>
   <style>
-  .selected {
-    background-color: rgba(243, 134, 9, 0.16) !important;
-    color: #000000;
+    .selected {
+        background-color: rgba(243, 134, 9, 0.16) !important;
+        color: #000000;
+    }       
+
+    #teamId tr:hover {
+        background-color: rgba(173, 87, 6, 0.03);
+    }
+    tr:hover td {
+        background-color: transparent;
     }
   </style>
 </head>
@@ -56,7 +63,17 @@
     {   id: '3',
         firstName: 'Ken',
         lastName: 'Luu',
-        code: '5645'
+        code: '4343'
+    },
+    {   id: '4',
+        firstName: 'Timmy',
+        lastName: 'Jen',
+        code: '5656'
+    },
+    {   id: '5',
+        firstName: 'Tom',
+        lastName: 'Tully',
+        code: '8775'
     }
     ];
 
