@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <style>
+table {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table td {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    max-width: 0;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+table th {
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color: #807E00;
+    cursor: default;
+    
+}
+
+table th.resizing {
+    cursor: col-resize;
+}
+
+.noCrsr {
+    margin-right: +5px;    
+    cursor: default;   
+}
+.colResize {
+    width: 1px;
+    height: 24px;
+    background-color:blueviolet;
+    cursor: col-resize;
+}
+.right {
+    float:right;
+}
+.left {
+    float:left;
+}
+
+.noSelect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+tr:nth-child(even){
+    background-color: rgba(134, 112, 112, 0.23)
+}
+    </style>
+<body>
+
+    !--Click on th and drag...-->
+<div class="container">
+    <table class="table table-striped table-condensed"> 
+        <thead>
+            <tr>
+                <th>th 1<div class="colResize right"></div></th>
+                <th><div class="colResize left"></div>th 2<div class="colResize right"></div></th>
+                <th><div class="colResize left"></div> the 3</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>td 1</td>
+                <td>td 2</td>
+                <td>td 3 Long row text one two three</td>
+            </tr>
+            <tr>
+                    <td>td 12</td>
+                    <td>td 22</td>
+                    <td>td 32</td>
+            </tr>
+            <tr>
+               <td>td 13</td>
+               <td>td 23</td>
+               <td>td 33</td>
+            </tr>
+            <tr>
+                    <td>td 14</td>
+                    <td>td 24</td>
+                    <td>td 34</td>
+            </tr>
+     
+            
+
+        </tbody>
+    </table>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script>
+$(function() {
+    var pressed = false;
+    var start = undefined;
+    var startX, startWidth;
+    var hasRight = false;
+
+    $("th div").mousedown(function(e) {
+        start = $(this).parent();
+        console.log("start:" + JSON.stringify(start));
+        pressed = true;
+        hasRight = $(this).hasClass("right") ;
+        //startX = start.pageX;
+        startWidth = start.width();
+        startX = e.pageX;
+        console.log("mouseDown.sartX:" + startX + " startWidth:" + startWidth);
+        $(start).addClass("resizing");
+        $(start).addClass("noSelect");
+    });
+    
+    $(document).mousemove(function(e) {
+        if(pressed) {
+            var calWidth = hasRight == true ?
+                startWidth+(e.pageX-startX) :
+                startWidth+(-e.pageX+startX);
+            start.width(calWidth);
+            console.log("hasRight:" + hasRight + 
+                " ePageX:" + e.pageX + 
+                " startX:" + startX + " callWidth:" +calWidth);
+
+            //console.log("start.calWidth:" + calWidth + " actWidth:" + $(start).width());
+        }
+    });
+    
+    $(document).mouseup(function() {
+        if(pressed) {
+            $(start).removeClass("resizing");
+            $(start).removeClass("noSelect");
+            pressed = false;
+            start = undefined;
+            startWidth = 0;
+            startX = 0;
+        }
+    });
+});
+</script>
+
+</body>
+</html>
