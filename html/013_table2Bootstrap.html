@@ -2,6 +2,7 @@
 <html>
     <style>
 table {
+    width: fixed;
     border-width: 1px;
     border-style: solid;
     border-color: black;
@@ -25,7 +26,8 @@ table th {
     border-color: black;
     background-color: #807E00;
     cursor: default;
-    
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 table th.resizing {
@@ -113,10 +115,11 @@ $(function() {
     var hasRight = false;
 
     $("th div").mousedown(function(e) {
-        start = $(this).parent();
+        hasRight = $(this).hasClass("right") ;
+        start = (hasRight === true) ? $(this).parent() :
+                $(this).parent().prev();
         console.log("start:" + JSON.stringify(start));
         pressed = true;
-        hasRight = $(this).hasClass("right") ;
         //startX = start.pageX;
         startWidth = start.width();
         startX = e.pageX;
@@ -127,9 +130,8 @@ $(function() {
     
     $(document).mousemove(function(e) {
         if(pressed) {
-            var calWidth = hasRight == true ?
-                startWidth+(e.pageX-startX) :
-                startWidth+(-e.pageX+startX);
+            e.preventDefault();
+            var calWidth = startWidth+(e.pageX-startX);
             start.width(calWidth);
             console.log("hasRight:" + hasRight + 
                 " ePageX:" + e.pageX + 
